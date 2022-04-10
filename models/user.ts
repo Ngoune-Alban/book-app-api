@@ -14,6 +14,10 @@ const UserModel = mongoose.Schema({
         required: true
     },
 
+    pseudo: {
+        type: String
+    }
+
 })
 
 
