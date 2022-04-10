@@ -18,8 +18,8 @@ exports.login = async (req: Request, res: Response) => {
         userId: user._id,
         token: jwt.sign({
             userId: user._id
-        }, 'RANDOM_SECRET_TOKEN_KEY', {
-            expiresIn: '24h'
+        }, process.env.JWT_KEY, {
+            expiresIn: process.env.JWT_EXPIRE_DATE
         })
     })
 };

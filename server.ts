@@ -1,8 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import http from 'http';
 import app from './app';
 import mongoose from 'mongoose';
 import { Request, Response } from 'express';
-
 
 const server = http.createServer(app);
 const port: number = Number(process.env.PORT) || 3000;
@@ -20,10 +21,12 @@ app.use((req: Request, res: Response, next): void => {
     next();
 });
 
-mongoose.connect("mongodb+srv://bookappuser:bookappuser@cluster0.ozzgc.mongodb.net/bookAppDb?retryWrites=true&w=majority", {
-})
-    .then(() => console.log('Successful connection to DB !'))
-    .catch(() => console.log('Connexion to the DB fails !'));
+if (process.env.DB_URI) {
+    mongoose.connect(process.env.DB_URI)
+        .then(() => console.log('Successful connection to DB !'))
+        .catch(() => console.log('Connexion to the DB fails !'));
+}
+
 
 
 
