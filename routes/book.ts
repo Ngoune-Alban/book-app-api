@@ -7,7 +7,7 @@ router.post('/', auth, bookCtrl.createOneBook);
 router.get('/', auth, bookCtrl.findAllBooks);
 router.get('/:id', auth, bookCtrl.findOneBook);
 router.put('/:id', auth, bookCtrl.updateOneBook);
-// router.delete('/:id', auth, bookCtrl.deleteOneBook);
+router.delete('/:id', auth, bookCtrl.deleteOneBook);
 
 
 

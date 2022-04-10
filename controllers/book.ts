@@ -27,6 +27,7 @@ exports.findAllBooks = async (req: Request, res: Response) => {
 
 exports.findOneBook = async (req: Request, res: Response) => {
     const book = await Book.findOne({ _id: req.params.id });
+    if (book == null) res.status(202).json("Book not found !");
     res.status(200).json(book);
 }
 
@@ -43,5 +44,11 @@ exports.updateOneBook = async (req: RequestCustom, res: Response) => {
         })
     return res.status(200).json("Successfully updated book !")
 }
-// exports.deleteOneBook = (req: Request, res: Response) => {
-// }
+
+exports.deleteOneBook = async (req: RequestCustom, res: Response) => {
+    const book = await Book.findOne({ _id: req.params.id });
+    if (!book) return res.status(400).json("The book does not exist!");
+    if (book.authorId != req.userId) return res.status(403).json("You do not have the right to delete this book!");
+    await Book.deleteOne({ _id: req.params.id });
+    return res.status(200).json("Successfully delete book !")
+}
