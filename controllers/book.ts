@@ -20,12 +20,16 @@ exports.createOneBook = async (req: RequestCustom, res: Response) => {
     }
 }
 
-exports.findAllBooks = async (req: RequestCustom, res: Response) => {
+exports.findAllBooks = async (req: Request, res: Response) => {
     const books = await Book.find();
     res.status(200).json(books);
 }
-// exports.findOneBook = (req: Request, res: Response) => {
-// }
+
+exports.findOneBook = async (req: Request, res: Response) => {
+    const book = await Book.findOne({ _id: req.params.id });
+    res.status(200).json(book);
+}
+
 // exports.updateOneBook = (req: Request, res: Response) => {
 // }
 // exports.deleteOneBook = (req: Request, res: Response) => {
