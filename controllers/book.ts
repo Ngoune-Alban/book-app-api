@@ -30,7 +30,18 @@ exports.findOneBook = async (req: Request, res: Response) => {
     res.status(200).json(book);
 }
 
-// exports.updateOneBook = (req: Request, res: Response) => {
-// }
+exports.updateOneBook = async (req: RequestCustom, res: Response) => {
+    const book = await Book.findOne({ _id: req.params.id });
+    if (!book) return res.status(400).json("The book does not exist!");
+    if (book.authorId != req.userId) return res.status(403).json("You do not have the right to update this book!");
+    await Book.updateOne({
+        _id: req.params.id
+    },
+        {
+            title: req.body.title,
+            description: req.body.description
+        })
+    return res.status(200).json("Successfully updated book !")
+}
 // exports.deleteOneBook = (req: Request, res: Response) => {
 // }
