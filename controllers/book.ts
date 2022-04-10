@@ -20,8 +20,10 @@ exports.createOneBook = async (req: RequestCustom, res: Response) => {
     }
 }
 
-// exports.findAllBooks = (req: Request, res: Response) => {
-// }
+exports.findAllBooks = async (req: RequestCustom, res: Response) => {
+    const books = await Book.find();
+    res.status(200).json(books);
+}
 // exports.findOneBook = (req: Request, res: Response) => {
 // }
 // exports.updateOneBook = (req: Request, res: Response) => {
